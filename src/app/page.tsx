@@ -1,9 +1,13 @@
-import Image from "next/image";
+import Banner from "@/components/Banner";
+import Marquee from "@/components/Marquee";
+import PriceUp from "@/components/PriceUp";
 
 export default function Home() {
   return (
     <div>
-      Home
+      <Marquee/>
+      <Banner/>
+      <PriceUp/>
     </div>
   );
 }
