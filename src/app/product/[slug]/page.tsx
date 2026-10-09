@@ -476,9 +476,9 @@ const ProductDetailsPage = async ({
       বাজারভিত্তিক দামের তথ্য পাওয়া যায়নি।
     </div>
   )}
-</div>
-      </div>
-    </div>
+  </div>
+  </div>
+  </div>
   );
 };
 
