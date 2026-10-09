@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <div>
       <Banner/>
-      {/* <PriceUp/>
-      <PriceDown/> */}
+      <PriceUp/>
+      <PriceDown/>
               <Suspense fallback={null}>
       <AllProducts/>
       
