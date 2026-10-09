@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import NavLinks from "@/components/NavLinks";
 import { Suspense } from "react";
+import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -24,15 +26,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${notoSansBengali.className} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header/>
-          
-          <Suspense fallback={null}>
-  <NavLinks />
+        <Header />
 
-</Suspense>
+        <Suspense fallback={null}>
+          <NavLinks />
+
+        </Suspense>
+        <Marquee/>
         {children}
-        <div>Footer</div>
-        </body>
+        <Footer/>
+      </body>
     </html>
   );
 }
