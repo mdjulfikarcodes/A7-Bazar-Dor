@@ -25,7 +25,7 @@ const NavLinks = () => {
         setError("");
 
         const res = await fetch(
-          "https://api.abcz.workers.dev/api/bazardor/categories",
+          "https://api.api-store.workers.dev/api/bazardor/categories",
           {
             headers: { Accept: "application/json" },
             cache: "no-store",
