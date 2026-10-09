@@ -16,6 +16,22 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com", // Google OAuth image
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com", // GitHub OAuth image
+      },
+    ],
+  },
 };
 
 export default nextConfig;

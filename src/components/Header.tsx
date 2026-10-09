@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
   const [date, setDate] = useState("");
@@ -44,17 +45,8 @@ const Header = () => {
           </p>
         </div>
       </Link>
+      <UserInfo/>
 
-      {/* Sign In + Sign Up */}
-      <div className="flex items-center gap-2 sm:gap-4 md:gap-6 shrink-0">
-        <button className="cursor-pointer text-xs sm:text-sm md:text-base whitespace-nowrap">
-          সাইন ইন
-        </button>
-
-        <button className="p-1.5 sm:p-2 rounded-[8px] cursor-pointer shadow-base-100 bg-[#05893e] text-white text-xs sm:text-sm md:text-base whitespace-nowrap">
-          সাইন আপ
-        </button>
-      </div>
 
     </div>
     </div>

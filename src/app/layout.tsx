@@ -6,6 +6,7 @@ import NavLinks from "@/components/NavLinks";
 import { Suspense } from "react";
 import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 
 const notoSansBengali = Noto_Sans_Bengali({
@@ -35,6 +36,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Marquee/>
         {children}
         <Footer/>
+
+        <Toaster />
       </body>
     </html>
   );
