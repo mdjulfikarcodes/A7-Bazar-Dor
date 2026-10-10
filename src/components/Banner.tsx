@@ -54,14 +54,14 @@ const Banner = () => {
         </div>
 
         {/* Right Image — ✅ এখন mobile-এও দেখাবে */}
-        <div className="block shrink-0 w-full md:w-auto flex justify-center md:justify-end">
+        <div className="shrink-0 w-full md:w-auto flex justify-center md:justify-end">
           <Image
             src="/bazar-hero.png"
             alt="Bazar Dor"
             width={300}
             height={220}
             priority
-            className="object-contain w-auto h-auto max-w-[200px] sm:max-w-[220px] lg:max-w-[260px] xl:max-w-[300px]"
+            className="object-contain w-auto h-auto max-w-50 sm:max-w-55 lg:max-w-65 xl:max-w-75"
           />
         </div>
       </div>

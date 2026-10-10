@@ -49,7 +49,7 @@ const getProductBySlug = async (
     }
 
     const listRes = await fetch(
-      "https://api.api-store.workers.dev/api/bazardor/products",
+      "https://api.abcz.workers.dev/api/bazardor/products",
       { cache: "no-store" }
     );
 
@@ -74,22 +74,6 @@ const getProductBySlug = async (
   }
 };
 
-const getComparisonText = (
-  label: string,
-  today: number,
-  compareValue: number
-) => {
-  const diff = today - compareValue;
-
-  if (diff > 0) {
-    return `${label} থেকে ৳ ${diff} বেশি`;
-  } else if (diff < 0) {
-    return `${label} থেকে ৳ ${Math.abs(diff)} কম`;
-  } else {
-    return `${label}ের সমান`;
-  }
-};
-
 const ProductDetailsPage = async ({
   params,
 }: {
@@ -106,8 +90,6 @@ const ProductDetailsPage = async ({
     nameBn,
     today,
     yesterday,
-    lastWeek,
-    lastMonth,
     unit,
     image,
     change,
@@ -140,15 +122,6 @@ const ProductDetailsPage = async ({
 
   // সারসংক্ষেপের গড় দাম
   const averagePrice = (lowestPrice + highestPrice) / 2;
-
-  // সর্বনিম্ন এবং সর্বোচ্চ দামের বাজার
-  const lowestMarket = markets.find(
-    (m) => Number(m.min) === lowestPrice
-  );
-
-  const highestMarket = markets.find(
-    (m) => Number(m.max) === highestPrice
-  );
 
   // গতকালের সাথে তুলনা
   const yesterdayDiff = today - yesterday;
@@ -189,7 +162,7 @@ const ProductDetailsPage = async ({
 
           <span>›</span>
 
-          <span className="text-gray-800 font-medium truncate max-w-[140px] sm:max-w-none">
+          <span className="text-gray-800 font-medium truncate max-w-35 sm:max-w-none">
             {nameBn}
           </span>
         </nav>
@@ -224,7 +197,7 @@ const ProductDetailsPage = async ({
             </div>
 
             {/* Today's Rate */}
-            <div className="bg-gray-50 rounded-xl p-3 sm:p-4 text-center w-full md:w-auto md:min-w-[140px] shrink-0">
+            <div className="bg-gray-50 rounded-xl p-3 sm:p-4 text-center w-full md:w-auto md:min-w-35 shrink-0">
               <p className="text-[10px] sm:text-xs text-gray-500 mb-1">
                 আজকের রেট
               </p>
@@ -406,7 +379,7 @@ const ProductDetailsPage = async ({
 
       {/* ===== Tablet + Desktop View (sm+) — Table ===== */}
       <div className="hidden sm:block overflow-x-auto -mx-1 sm:mx-0 px-1 sm:px-0">
-        <table className="w-full text-xs md:text-sm min-w-[520px]">
+        <table className="w-full text-xs md:text-sm min-w-130">
           <thead>
             <tr className="bg-gray-50 text-gray-600 text-left">
               <th className="py-2.5 md:py-3 px-2.5 sm:px-3 md:px-4 font-semibold rounded-l-lg whitespace-nowrap">

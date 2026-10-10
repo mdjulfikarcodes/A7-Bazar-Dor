@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer className="w-full mt-10">
-      <div className="w-full bg-gradient-to-b from-[#fafcfa] to-[#fafcfa] border-t-[1px] 
+      <div className="w-full bg-linear-to-b from-[#fafcfa] to-[#fafcfa] border-t
       border-[#b6b5b5]">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 md:px-8 py-4 sm:py-5 text-xs sm:text-sm text-gray-800">
           {/* Left - Brand tagline */}

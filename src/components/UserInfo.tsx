@@ -1,6 +1,7 @@
 'use client'
 
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -58,7 +59,7 @@ const UserInfo = () => {
 
                 <Link
                     href="/signup"
-                    className="p-1.5 sm:p-2 rounded-[8px] cursor-pointer bg-[#05893e] hover:bg-[#047032] text-white text-xs sm:text-sm md:text-base whitespace-nowrap"
+                    className="p-1.5 sm:p-2 rounded-lg cursor-pointer bg-[#05893e] hover:bg-[#047032] text-white text-xs sm:text-sm md:text-base whitespace-nowrap"
                 >
                     সাইন আপ
                 </Link>
@@ -78,14 +79,17 @@ const UserInfo = () => {
             >
                 {/* Avatar */}
                 <div className="avatar">
-                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-xl overflow-hidden bg-gray-100">
-                        <img
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-xl overflow-hidden bg-gray-100 relative">
+                        <Image
                             alt={user.name || "User"}
                             src={getAvatarSrc()}
+                            width={40}
+                            height={40}
                             className="w-full h-full object-cover"
                             onError={(e) => {
                                 // ✅ image load fail হলে fallback
-                                (e.currentTarget as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                const target = e.currentTarget as HTMLImageElement;
+                                target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
                                     user.name || "User"
                                 )}&background=05893e&color=fff`;
                             }}
@@ -94,7 +98,7 @@ const UserInfo = () => {
                 </div>
 
                 {/* Name */}
-                <span className="text-sm sm:text-base font-medium text-gray-800 max-w-[90px] sm:max-w-[140px] truncate">
+                <span className="text-sm sm:text-base font-medium text-gray-800 max-w-22.5 sm:max-w-35 truncate">
                     {user.name}
                 </span>
 

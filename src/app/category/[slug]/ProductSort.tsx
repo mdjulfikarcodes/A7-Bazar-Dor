@@ -34,7 +34,7 @@ export default function ProductSort({ products }: { products: Product[] }) {
           <select
             value={sortType}
             onChange={(e) => setSortType(e.target.value)}
-            className="appearance-none bg-white border border-gray-200 text-gray-700 py-1.5 sm:py-2 pl-3 sm:pl-4 pr-8 sm:pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent cursor-pointer text-xs sm:text-sm font-medium max-w-[160px] sm:max-w-none"
+            className="appearance-none bg-white border border-gray-200 text-gray-700 py-1.5 sm:py-2 pl-3 sm:pl-4 pr-8 sm:pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent cursor-pointer text-xs sm:text-sm font-medium max-w-40 sm:max-w-none"
           >
             <option value="default">ডিফল্ট</option>
             <option value="low-high">দাম: কম থেকে বেশি</option>

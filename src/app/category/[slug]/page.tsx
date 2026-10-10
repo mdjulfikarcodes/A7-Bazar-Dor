@@ -26,7 +26,7 @@ const getCategoryProducts = async (
   categorySlug: string
 ): Promise<CategoryProduct[]> => {
   const res: Response = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${categorySlug}`,
+    `https://api.abcz.workers.dev/api/bazardor/products?category=${categorySlug}`,
     { cache: "no-store" }
   );
 

@@ -1,8 +1,9 @@
 'use client'
 
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const ProfilePage = () => {
     const { data: session, isPending } = authClient.useSession();
@@ -99,11 +100,12 @@ const ProfilePage = () => {
                             <div className="flex items-center gap-3 sm:gap-4">
                                 <div className="avatar">
                                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-gray-100">
-                                        <img
+                                        <Image
                                             src={avatarSrc}
                                             alt={user.name || "User"}
                                             width={56}
                                             height={56}
+                                            unoptimized
                                             className="w-full h-full object-cover"
                                             onError={(e) => {
                                                 (e.currentTarget as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(

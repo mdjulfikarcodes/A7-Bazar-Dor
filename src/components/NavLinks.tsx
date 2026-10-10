@@ -25,7 +25,7 @@ const NavLinks = () => {
         setError("");
 
         const res = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/categories",
+          "https://api.abcz.workers.dev/api/bazardor/categories",
           {
             headers: { Accept: "application/json" },
             cache: "no-store",
@@ -84,17 +84,17 @@ const NavLinks = () => {
             <span className="relative inline-block w-5 h-4">
               <span
                 className={`absolute left-0 top-0 h-0.5 w-5 bg-current rounded transition-all duration-300 ${
-                  open ? "translate-y-[7px] rotate-45" : ""
+                  open ? "translate-y-1.75 rotate-45" : ""
                 }`}
               />
               <span
-                className={`absolute left-0 top-[7px] h-0.5 w-5 bg-current rounded transition-all duration-300 ${
+                className={`absolute left-0 top-1.75 h-0.5 w-5 bg-current rounded transition-all duration-300 ${
                   open ? "opacity-0" : "opacity-100"
                 }`}
               />
               <span
-                className={`absolute left-0 top-[14px] h-0.5 w-5 bg-current rounded transition-all duration-300 ${
-                  open ? "-translate-y-[7px] -rotate-45" : ""
+                className={`absolute left-0 top-3.5 h-0.5 w-5 bg-current rounded transition-all duration-300 ${
+                  open ? "-translate-y-1.75 -rotate-45" : ""
                 }`}
               />
             </span>
@@ -126,7 +126,7 @@ const NavLinks = () => {
         {/* Mobile dropdown menu */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            open ? "max-h-[500px] opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"
+            open ? "max-h-125 opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"
           }`}
         >
           <div className="flex flex-col gap-2 bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
