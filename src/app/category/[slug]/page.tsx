@@ -1,7 +1,5 @@
-import React from "react";
+import { notFound } from "next/navigation";
 import ProductSort from "./ProductSort";
-
-export const instant = false;
 
 interface CategoryProduct {
   id: number;
@@ -50,6 +48,11 @@ const CategoryProducts = async ({
 }) => {
   const { slug: categorySlug } = await params;
   const products = await getCategoryProducts(categorySlug);
+
+  // ✅ কোনো পণ্য না থাকলে 404
+  if (!products || products.length === 0) {
+    notFound();
+  }
 
   const headerTitle = products[0]?.categoryNameBn || categorySlug || "পণ্য";
   const headerIcon = products[0]?.categoryIcon || "📦";

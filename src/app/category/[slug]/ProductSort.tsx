@@ -57,8 +57,8 @@ export default function ProductSort({ products }: { products: Product[] }) {
         মোট {sortedProducts.length}টি পণ্য দেখানো হচ্ছে
       </h2>
 
-      {/* Product Cards Grid */}
-      <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-6">
+      {/* ✅ Product Cards Grid — mobile-এ compact */}
+      <div className="grid grid-cols-2 gap-1.5 sm:gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-6">
         {sortedProducts.length > 0 ? (
           sortedProducts.map((product, index) => {
             const { nameBn, today, unit, image, change } = product;
@@ -75,53 +75,55 @@ export default function ProductSort({ products }: { products: Product[] }) {
               <Link
                 href={`/product/${product.slug}`}
                 key={product.id || index}
-                className="bg-white rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md hover:border-green-200 transition-all cursor-pointer w-full"
+                className="bg-white rounded-xl sm:rounded-2xl p-2.5 sm:p-4 md:p-5 lg:p-6 shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md hover:border-green-200 transition-all cursor-pointer w-full"
               >
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-5 md:mb-6">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 shrink-0 bg-gray-100 rounded-full flex items-center justify-center text-lg sm:text-xl">
+                {/* Card Header */}
+                <div className="flex items-center gap-1.5 sm:gap-3 md:gap-4 mb-2.5 sm:mb-5 md:mb-6">
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 md:w-10 md:h-10 shrink-0 bg-gray-100 rounded-full flex items-center justify-center text-base sm:text-xl">
                     {image || "📦"}
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-sm sm:text-base text-gray-800 leading-tight truncate">
+                    <h3 className="font-semibold text-xs sm:text-base text-gray-800 leading-tight truncate">
                       {nameBn}
                     </h3>
-                    <p className="text-[10px] sm:text-xs text-gray-900 truncate">
+                    <p className="text-[9px] sm:text-xs text-gray-900 truncate">
                       প্রতি {unitBn}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex justify-between items-end mt-auto gap-2">
+                {/* Card Body */}
+                <div className="flex justify-between items-end mt-auto gap-1.5 sm:gap-2">
                   <div className="min-w-0">
-                    <p className="text-[10px] sm:text-xs text-gray-900 mb-1">
+                    <p className="text-[9px] sm:text-xs text-gray-900 mb-0.5 sm:mb-1">
                       আজকের দাম
                     </p>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 truncate">
+                    <div className="flex items-baseline gap-0.5 sm:gap-1">
+                      <span className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-900 truncate">
                         {today.toLocaleString("bn-BD")}
                       </span>
-                      <span className="text-[10px] sm:text-xs md:text-sm font-medium text-gray-900">
+                      <span className="text-[9px] sm:text-xs md:text-sm font-medium text-gray-900">
                         টাকা
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[10px] sm:text-xs md:text-sm font-medium shrink-0">
+                  <div className="flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-xs md:text-sm font-medium shrink-0">
                     {isUp && (
-                      <div className="flex items-center gap-1 text-green-600 bg-green-50 px-1.5 sm:px-2 py-1 rounded-md">
-                        <span className="text-[8px] sm:text-[10px]">▲</span>
-                        <span>{changePct.toLocaleString("bn-BD")}%</span>
+                      <div className="flex items-center gap-0.5 sm:gap-1 text-green-600 bg-green-50 px-1 sm:px-2 py-0.5 sm:py-1 rounded-md">
+                        <span className="text-[7px] sm:text-[10px]">▲</span>
+                        <span>{changePct}%</span>
                       </div>
                     )}
                     {isDown && (
-                      <div className="flex items-center gap-1 text-red-600 bg-red-50 px-1.5 sm:px-2 py-1 rounded-md">
-                        <span className="text-[8px] sm:text-[10px]">▼</span>
+                      <div className="flex items-center gap-0.5 sm:gap-1 text-red-600 bg-red-50 px-1 sm:px-2 py-0.5 sm:py-1 rounded-md">
+                        <span className="text-[7px] sm:text-[10px]">▼</span>
                         <span>{Math.abs(changePct)}%</span>
                       </div>
                     )}
                     {isNeutral && (
-                      <div className="flex items-center gap-1 text-gray-500 bg-gray-50 px-1.5 sm:px-2 py-1 rounded-md">
-                        <span className="text-[8px] sm:text-[10px]">—</span>
+                      <div className="flex items-center gap-0.5 sm:gap-1 text-gray-500 bg-gray-50 px-1 sm:px-2 py-0.5 sm:py-1 rounded-md">
+                        <span className="text-[7px] sm:text-[10px]">—</span>
                         <span>০.০%</span>
                       </div>
                     )}

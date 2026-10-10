@@ -42,28 +42,47 @@ const PriceUp = () => {
     fetchProducts();
   }, []);
 
+  // ===== Loading Skeleton =====
   if (loading) {
     return (
-      <section className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
-        <h2 className="mb-4 sm:mb-5 text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
+      <section className="mx-auto max-w-6xl px-3 sm:px-4 py-4 sm:py-8">
+        <h2 className="mb-3 sm:mb-5 text-base sm:text-xl md:text-2xl font-bold text-gray-800">
           <span className="text-red-500">▲</span> আজ দাম বেড়েছে
         </h2>
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+        {/* ✅ Mobile-এ compact grid */}
+        <div className="grid grid-cols-2 gap-1.5 sm:gap-3 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div
               key={i}
-              className="animate-pulse rounded-2xl border border-gray-200 bg-white p-4 h-32 sm:h-36 md:h-40"
-            />
+              className="animate-pulse rounded-xl sm:rounded-2xl border border-gray-200 bg-white p-3 sm:p-4 h-24 sm:h-32 md:h-40"
+            >
+              {/* Icon + Title skeleton */}
+              <div className="flex items-center gap-1.5 sm:gap-3 mb-2 sm:mb-3">
+                <div className="w-7 h-7 sm:w-10 sm:h-10 bg-gray-200 rounded-full shrink-0" />
+                <div className="space-y-1 flex-1 min-w-0">
+                  <div className="h-3 sm:h-4 w-16 sm:w-24 bg-gray-200 rounded" />
+                  <div className="h-2 sm:h-3 w-10 sm:w-14 bg-gray-100 rounded" />
+                </div>
+              </div>
+
+              {/* Price skeleton */}
+              <div className="flex justify-between items-end gap-1.5">
+                <div className="h-4 sm:h-6 w-14 sm:w-20 bg-gray-200 rounded" />
+                <div className="h-4 sm:h-6 w-10 sm:w-12 bg-gray-100 rounded-md" />
+              </div>
+            </div>
           ))}
         </div>
       </section>
     );
   }
 
+  // ===== Error State =====
   if (error) {
     return (
-      <section className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-4 sm:p-5 text-center">
+      <section className="mx-auto max-w-6xl px-3 sm:px-4 py-4 sm:py-8">
+        <div className="rounded-xl sm:rounded-2xl border border-red-200 bg-red-50 p-4 sm:p-5 text-center">
           <p className="text-sm sm:text-base font-semibold text-red-600">
             Product load করা যায়নি
           </p>
@@ -73,12 +92,20 @@ const PriceUp = () => {
     );
   }
 
+  // ===== Empty State =====
+  if (products.length === 0) {
+    return null; // অথবা section hide করে দিন
+  }
+
+  // ===== Success State =====
   return (
-    <section className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
-      <h2 className="mb-4 sm:mb-5 text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
+    <section className="mx-auto max-w-6xl px-3 sm:px-4 py-4 sm:py-8">
+      <h2 className="mb-3 sm:mb-5 text-base sm:text-xl md:text-2xl font-bold text-gray-800">
         <span className="text-red-500">▲</span> আজ দাম বেড়েছে
       </h2>
-      <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+      {/* ✅ Mobile-এ compact grid — ২ কলাম, ছোট gap */}
+      <div className="grid grid-cols-2 gap-1.5 sm:gap-3 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

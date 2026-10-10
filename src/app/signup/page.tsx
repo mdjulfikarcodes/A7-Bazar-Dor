@@ -33,7 +33,6 @@ const SignUpPage = () => {
                 name: String(user.name),
                 email: String(user.email),
                 password: String(user.password),
-                callbackURL: "/",
             });
 
             if (error) {
@@ -58,8 +57,8 @@ const SignUpPage = () => {
 
             if (data) {
                 console.log("Signup success:", data);
-                toast.success("অ্যাকাউন্ট তৈরি হয়েছে!", { id: toastId });
-                router.push("/");
+                toast.success("অ্যাকাউন্ট তৈরি হয়েছে! এখন সাইন ইন করুন", { id: toastId });
+                router.push(`/signin?email=${encodeURIComponent(String(user.email))}`);
             }
         } catch (err) {
             console.log("Catch error:", err);

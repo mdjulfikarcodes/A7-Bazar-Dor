@@ -13,10 +13,11 @@ type Category = {
 
 const NavLinks = () => {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [open, setOpen] = useState(false);
+  const [openForPath, setOpenForPath] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const pathname = usePathname(); // ✅ current path
+  const pathname = usePathname();
+  const open = openForPath === pathname;
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -39,7 +40,6 @@ const NavLinks = () => {
         const text = await res.text();
 
         let data: Category[];
-
         try {
           data = JSON.parse(text);
         } catch {
@@ -58,29 +58,27 @@ const NavLinks = () => {
     fetchCategories();
   }, []);
 
-  // mobile menu বন্ধ করার function
-  const closeMenu = () => setOpen(false);
+  const closeMenu = () => setOpenForPath(null);
 
-  // ✅ active link check করার helper
   const isActive = (slug: string) => {
     return pathname === `/category/${slug}`;
   };
 
   return (
-    // ✅ Full-width wrapper — border পুরো width জুড়ে থাকবে
-    <div className="w-full border-b border-gray-200 pb-3 sm:pb-4">
-      <nav className="mx-auto mt-4 sm:mt-5 w-full max-w-7xl px-3 sm:px-4 md:px-6 md:pl-8">
-        {/* Top bar — Mobile: Hamburger + label | Desktop: full links */}
-        <div className="flex items-center justify-between md:block">
-          {/* Hamburger button — শুধু mobile/tablet-এ দেখাবে */}
+    <div className="w-full border-b border-gray-200 bg-white sticky top-14.25 sm:top-16.25 md:top-18.25 z-40">
+      <nav className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 md:pl-8">
+        {/* ===== Top bar ===== */}
+        <div className="flex items-center justify-between py-3 sm:py-4 md:block md:py-0 md:pt-4 md:pb-4">
+
+          {/* Hamburger button — Mobile only */}
           <button
             type="button"
-            onClick={() => setOpen((prev) => !prev)}
+            onClick={() => setOpenForPath((prev) => (prev === pathname ? null : pathname))}
             aria-label="Toggle menu"
             aria-expanded={open}
             className="md:hidden inline-flex items-center gap-2 text-sm sm:text-base font-medium text-gray-800 hover:text-green-600 transition-colors cursor-pointer"
           >
-            {/* Hamburger icon (open হলে X হয়ে যাবে) */}
+            {/* Hamburger icon */}
             <span className="relative inline-block w-5 h-4">
               <span
                 className={`absolute left-0 top-0 h-0.5 w-5 bg-current rounded transition-all duration-300 ${
@@ -99,9 +97,28 @@ const NavLinks = () => {
               />
             </span>
             <span>ক্যাটাগরি</span>
+
+            {/* Chevron — open state এর জন্য */}
+            <svg
+              className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                open ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
 
-          {/* Desktop links — md+ এ horizontal nav */}
+          {/* Active category badge — Mobile এ right side */}
+          {!open && pathname?.startsWith("/category/") && (
+            <span className="md:hidden text-xs text-green-600 font-medium truncate max-w-30">
+              {categories.find((c) => isActive(c.slug))?.nameBn || ""}
+            </span>
+          )}
+
+          {/* Desktop links */}
           <div className="hidden md:flex items-center justify-start gap-6 md:gap-7 overflow-x-auto whitespace-nowrap scrollbar-hide text-sm sm:text-base">
             {categories.map((category) => {
               const active = isActive(category.slug);
@@ -110,10 +127,10 @@ const NavLinks = () => {
                 <Link
                   key={category.id}
                   href={`/category/${category.slug}`}
-                  className={`shrink-0 transition-colors ${
+                  className={`shrink-0 transition-colors pb-1 border-b-2 ${
                     active
-                      ? "text-green-600 font-semibold border-b-2 border-green-600 pb-1"
-                      : "hover:text-green-600"
+                      ? "text-green-600 font-semibold border-green-600"
+                      : "border-transparent hover:text-green-600 hover:border-green-300"
                   }`}
                 >
                   {category.icon} {category.nameBn}
@@ -123,21 +140,34 @@ const NavLinks = () => {
           </div>
         </div>
 
-        {/* Mobile dropdown menu */}
+        {/* ===== Mobile dropdown menu ===== */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            open ? "max-h-125 opacity-100 mt-3" : "max-h-0 opacity-0 mt-0"
+            open ? "max-h-125 opacity-100 pb-3" : "max-h-0 opacity-0 pb-0"
           }`}
         >
-          <div className="flex flex-col gap-2 bg-white border border-gray-100 rounded-2xl p-3 shadow-sm">
+          <div className="flex flex-col gap-1 bg-white border border-gray-100 rounded-2xl p-2 shadow-sm">
+
+            {/* Loading skeleton */}
             {loading && (
-              <p className="text-xs text-gray-500 px-2 py-1">লোড হচ্ছে...</p>
+              <div className="flex flex-col gap-1.5 p-1">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-9 bg-gray-100 rounded-lg animate-pulse"
+                  />
+                ))}
+              </div>
             )}
 
+            {/* Error */}
             {error && !loading && (
-              <p className="text-xs text-red-500 px-2 py-1">{error}</p>
+              <p className="text-xs text-red-500 px-3 py-2 bg-red-50 rounded-lg">
+                {error}
+              </p>
             )}
 
+            {/* Category links */}
             {!loading &&
               !error &&
               categories.map((category) => {
@@ -148,20 +178,24 @@ const NavLinks = () => {
                     key={category.id}
                     href={`/category/${category.slug}`}
                     onClick={closeMenu}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-colors ${
                       active
                         ? "bg-green-50 text-green-700 font-semibold"
-                        : "text-gray-800 hover:bg-green-50 hover:text-green-700"
+                        : "text-gray-800 hover:bg-green-50 hover:text-green-700 active:bg-green-100"
                     }`}
                   >
-                    <span>{category.icon}</span>
+                    <span className="text-base">{category.icon}</span>
                     <span>{category.nameBn}</span>
+                    {active && (
+                      <span className="ml-auto text-green-600 text-xs">✓</span>
+                    )}
                   </Link>
                 );
               })}
 
+            {/* Empty state */}
             {!loading && !error && categories.length === 0 && (
-              <p className="text-xs text-gray-500 px-2 py-1">
+              <p className="text-xs text-gray-500 px-3 py-2 text-center">
                 কোনো ক্যাটাগরি পাওয়া যায়নি।
               </p>
             )}

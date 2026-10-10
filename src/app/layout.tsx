@@ -8,11 +8,9 @@ import Marquee from "@/components/Marquee";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
-
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["latin", "bengali"],
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,11 +29,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <Suspense fallback={null}>
           <NavLinks />
-
         </Suspense>
-        <Marquee/>
+
+        <Marquee />
         {children}
-        <Footer/>
+        <Footer />
 
         <Toaster />
       </body>
